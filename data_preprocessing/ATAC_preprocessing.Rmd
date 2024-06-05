@@ -1,0 +1,56 @@
+---
+title: "Filter ATAC-Seq Data"
+author: "Eleanor Alspaugh , Max Alcer, Jakub Liu"
+date: "2024-06-04"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(Matrix)
+```
+
+
+# Load Expression Matrix and annotations
+DO NOT ATEMT TO RUN WITH <64GB OF RAM
+```{r}
+expression_matrix <- readRDS("../data/OMIX928-99-02.rds") # not included in git
+annotations <- read_csv("../data/OMIX928-24.csv", show_col_types = FALSE)
+```
+
+```{r}
+annotations <- annotations %>% select(Barcode, Celltype) %>%
+  filter(grepl("Erythroblast", Celltype)|
+           grepl("Cycling_Blood_Progenitor", Celltype)|
+           grepl("Macrophage", Celltype)|
+           grepl("Megakaryocyte_Progenitor", Celltype)|
+           grepl("Myeloid_Cell", Celltype)|
+           grepl("Blood_Progenitor", Celltype)) %>%
+  mutate(Celltype = replace(Celltype, grepl("Erythroblast", Celltype), "Erythroblast")) %>%
+  mutate(Celltype = replace(Celltype, grepl("Cycling_Blood_Progenitor", Celltype), "Cycling_Blood_Progenitor")) %>% 
+  mutate(Celltype = replace(Celltype, grepl("Macrophage", Celltype), "Macrophage")) %>% 
+  mutate(Celltype = replace(Celltype, grepl("Blood_Progenitor", Celltype), "Blood_Progenitor"))
+```
+
+```{r}
+expression_matrix <- expression_matrix[, annotations$Barcode]
+```
+
+```{r}
+row_sums <- rowSums(expression_matrix)
+indx_genes <- which(row_sums > max(row_sums)/100)
+expression_matrix <- expression_matrix[indx_genes,]
+```
+
+```{r}
+saveRDS(expression_matrix, file = "../data/ATAC-Seq-filtered.rds")
+```
+
+
+
+
+
