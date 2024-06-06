@@ -1,0 +1,64 @@
+---
+title: "Filter ATAC-Seq Data"
+author: "Eleanor Alspaugh , Max Alcer, Jakub Liu"
+date: "2024-06-04"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(Matrix)
+```
+
+
+# Load Expression Matrix and annotations
+DO NOT ATEMT TO RUN WITH <64GB OF RAM
+```{r}
+expression_matrix <- readRDS("../data/unprocessed/gene_count_cleaned.RDS") # not included in git
+```
+
+```{r}
+annotations <- read_csv("../data/unprocessed/cell_annotate.csv", show_col_types = FALSE)
+```
+
+
+```{r}
+annotations <- annotations %>% 
+  filter(Main_trajectory == "Haematopoiesis trajectory",
+         Total_mRNAs >= 400,
+         doublet_cluster == FALSE,
+         detected_doublet == FALSE,
+         Sub_trajectory_name != "NA")%>%
+  select(sample, Main_cell_type, Main_trajectory, Sub_trajectory_name)
+  
+  
+```
+
+```{r}
+write_csv(annotations, "../data/pre_processed/RNA_annotations.csv")
+```
+
+
+
+```{r}
+expression_matrix <- expression_matrix[,annotations$sample]
+```
+
+```{r}
+row_sums <- rowSums(expression_matrix)
+indx_genes <- which(row_sums > max(row_sums)/100)
+expression_matrix <- expression_matrix[indx_genes,]
+```
+
+```{r}
+saveRDS(expression_matrix, file = "../data/pre_processed/RNA-Seq-filtered.rds")
+```
+
+
+
+
+

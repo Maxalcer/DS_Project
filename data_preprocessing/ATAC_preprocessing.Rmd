@@ -18,8 +18,8 @@ library(Matrix)
 # Load Expression Matrix and annotations
 DO NOT ATEMT TO RUN WITH <64GB OF RAM
 ```{r}
-expression_matrix <- readRDS("../data/OMIX928-99-02.rds") # not included in git
-annotations <- read_csv("../data/OMIX928-24.csv", show_col_types = FALSE)
+expression_matrix <- readRDS("../data/unprocessed/OMIX928-99-02.rds") # not included in git
+annotations <- read_csv("../data/unprocessed/OMIX928-24.csv", show_col_types = FALSE)
 ```
 
 ```{r}
@@ -37,6 +37,11 @@ annotations <- annotations %>% select(Barcode, Celltype) %>%
 ```
 
 ```{r}
+write_csv(annotations, "../data/pre_processed/ATAC_annotations.csv")
+```
+
+
+```{r}
 expression_matrix <- expression_matrix[, annotations$Barcode]
 ```
 
@@ -47,7 +52,7 @@ expression_matrix <- expression_matrix[indx_genes,]
 ```
 
 ```{r}
-saveRDS(expression_matrix, file = "../data/ATAC-Seq-filtered.rds")
+saveRDS(expression_matrix, file = "../data/pre_processed/ATAC-Seq-filtered.rds")
 ```
 
 
