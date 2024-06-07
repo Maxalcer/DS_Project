@@ -73,7 +73,7 @@ combined_res <- combined_res[order(combined_res$padj),]
 ```
 
 ```{r}
-write_csv(head(combined_res, 50), "top_50_genes.csv")
+write_csv(combined_res, "genes_by_sig.csv")
 ```
 
 
