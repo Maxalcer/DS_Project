@@ -28,11 +28,14 @@ annotations <- read_csv("../data/unprocessed/cell_annotate.csv", show_col_types 
 
 ```{r}
 annotations <- annotations %>% 
-  filter(Main_trajectory == "Haematopoiesis trajectory",
+  filter(Sub_trajectory_name %in% c("Definitive erythroid trajectory",
+                                    "White blood cell trajectory",
+                                    "primitive erythroid trajectory",
+                                    "Megakaryocyte trajectory"),
+         Main_trajectory == "Haematopoiesis trajectory",
          Total_mRNAs >= 400,
          doublet_cluster == FALSE,
-         detected_doublet == FALSE,
-         Sub_trajectory_name != "NA")%>%
+         detected_doublet == FALSE)%>%
   select(sample, Main_cell_type, Main_trajectory, Sub_trajectory_name)
   
   
@@ -49,8 +52,8 @@ expression_matrix <- expression_matrix[,annotations$sample]
 ```
 
 ```{r}
-row_sums <- rowSums(expression_matrix)
-indx_genes <- which(row_sums > max(row_sums)/100)
+row_max <- apply(expression_matrix, 1, max)
+indx_genes <- which(row_max > 10)
 expression_matrix <- expression_matrix[indx_genes,]
 ```
 

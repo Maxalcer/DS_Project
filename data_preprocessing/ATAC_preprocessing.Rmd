@@ -19,6 +19,9 @@ library(Matrix)
 DO NOT ATEMT TO RUN WITH <64GB OF RAM
 ```{r}
 expression_matrix <- readRDS("../data/unprocessed/OMIX928-99-02.rds") # not included in git
+```
+
+```{r}
 annotations <- read_csv("../data/unprocessed/OMIX928-24.csv", show_col_types = FALSE)
 ```
 
@@ -46,8 +49,8 @@ expression_matrix <- expression_matrix[, annotations$Barcode]
 ```
 
 ```{r}
-row_sums <- rowSums(expression_matrix)
-indx_genes <- which(row_sums > max(row_sums)/100)
+row_max <- apply(expression_matrix, 1, max)
+indx_genes <- which(row_max > max(row_max)/100)
 expression_matrix <- expression_matrix[indx_genes,]
 ```
 
