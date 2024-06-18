@@ -13,6 +13,9 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(Matrix)
 ```
+```{r}
+data <- read_delim("../data/unprocessed/scATAC_SpinalCord_E13_5.fragments.tsv/scATAC_SpinalCord_E13_5.fragments.tsv")
+```
 
 
 # Load Expression Matrix and annotations

@@ -1,0 +1,37 @@
+---
+title: "data_transformation"
+author: "Max Alcer"
+date: "2024-06-13"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(Matrix)
+library(tidyverse)
+```
+
+```{r}
+RNA_data <- readRDS("../data/pre_processed/RNA-Seq-filtered.rds")
+DEG <- read_csv("../DESeq/genes_by_sig.csv")
+```
+
+```{r}
+DEG <- DEG %>% 
+  filter(padj <= 0.05) %>%
+  distinct(gene, .keep_all = TRUE) %>%
+  head(200)
+
+RNA_data <- RNA_data[DEG$gene,]
+```
+
+```{r}
+write.table(as.matrix(t(RNA_data)), 
+            file="../data/training/train_data_RNA_200.txt")
+```
+
+
+
