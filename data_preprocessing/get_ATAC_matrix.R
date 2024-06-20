@@ -1,0 +1,50 @@
+library(Matrix)
+library(GenomicRanges)
+library(rtracklayer)
+library(TxDb.Mmusculus.UCSC.mm10.knownGene)
+library(AnnotationDbi)
+library(org.Mm.eg.db)
+library(tidyverse)
+
+path = "../data/unprocessed/atac_organ_fragments/"
+files <- read.table(paste(path, "md5.txt", sep = ""))$V2
+
+genes <- genes(TxDb.Mmusculus.UCSC.mm10.knownGene)
+
+total_df <- tibble("gene_symbol" = character())
+
+for(file in files){
+  fragments <- read.delim(paste(path, file, sep = ""), header = FALSE)
+  
+  atac_Granges <- GRanges(seqnames = atac_data$V1,
+                          ranges = IRanges(start = atac_data$V2, 
+                                           end = atac_data$V3),
+                          sample = atac_data$V4)
+  rm(fragments)
+  
+  nearest_genes <- nearest(atac_Granges, genes)
+  atac_Granges$gene_id <- mcols(genes)$gene_id[nearest_genes]
+  
+  
+  gene_symbols <- mapIds(org.Mm.eg.db,
+                         keys = atac_Granges$gene_id,
+                         column = "SYMBOL",
+                         keytype = "ENTREZID",
+                         multiVals = "first")
+  
+  atac_Granges$gene_symbol <- gene_symbols
+  
+  atac_df <- as.data.frame(atac_Granges)
+  
+  atac_df <- atac_df %>%
+    group_by(gene_symbol, sample) %>%
+    summarise(count = n()) %>%
+    ungroup()
+  
+  atac_df <- pivot_wider(atac_df, names_from = sample, values_from = count, values_fill = list(count = 0))
+  atac_df <- column_to_rownames(atac_df, var = "gene_symbol")
+  
+  total_df <- full_join(total_df, atac_df) %>% replace(is.na(.), 0)
+}
+
+saveRDS(as(total_df, "sparseMatrix"), "..data/unprocessed/ATAC_counts.rds")
