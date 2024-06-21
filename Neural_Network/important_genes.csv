@@ -1,0 +1,41 @@
+,gene_id,gene_name,class
+0,ENSMUSG00000096768.7,Erdr1,Definitive erythroid trajectory
+1,ENSMUSG00000040274.11,Cdk6,Definitive erythroid trajectory
+2,ENSMUSG00000027784.10,Ppm1l,Definitive erythroid trajectory
+3,ENSMUSG00000052305.6,Hbb-bs,Definitive erythroid trajectory
+4,ENSMUSG00000022377.16,Asap1,Definitive erythroid trajectory
+5,ENSMUSG00000042225.3,Ammecr1,Definitive erythroid trajectory
+6,ENSMUSG00000051910.13,Sox6,Definitive erythroid trajectory
+7,ENSMUSG00000035472.13,Slc25a21,Definitive erythroid trajectory
+8,ENSMUSG00000000861.15,Bcl11a,Definitive erythroid trajectory
+9,ENSMUSG00000097039.8,Pvt1,Definitive erythroid trajectory
+10,ENSMUSG00000004698.10,Hdac9,White blood cell trajectory
+11,ENSMUSG00000042082.6,Arsb,White blood cell trajectory
+12,ENSMUSG00000052336.7,Cx3cr1,White blood cell trajectory
+13,ENSMUSG00000041272.11,Tox,White blood cell trajectory
+14,ENSMUSG00000021725.8,Parp8,White blood cell trajectory
+15,ENSMUSG00000001986.16,Gria3,White blood cell trajectory
+16,ENSMUSG00000026712.3,Mrc1,White blood cell trajectory
+17,ENSMUSG00000041112.15,Elmo1,White blood cell trajectory
+18,ENSMUSG00000052889.11,Prkcb,White blood cell trajectory
+19,ENSMUSG00000042286.13,Stab1,White blood cell trajectory
+20,ENSMUSG00000020176.17,Grb10,primitive erythroid trajectory
+21,ENSMUSG00000024985.18,Tcf7l2,primitive erythroid trajectory
+22,ENSMUSG00000071713.4,Csf2rb,primitive erythroid trajectory
+23,ENSMUSG00000045095.16,Magi1,primitive erythroid trajectory
+24,ENSMUSG00000031075.18,Ano1,primitive erythroid trajectory
+25,ENSMUSG00000044033.16,Ccdc141,primitive erythroid trajectory
+26,ENSMUSG00000021991.8,Cacna2d3,primitive erythroid trajectory
+27,ENSMUSG00000052187.4,Hbb-y,primitive erythroid trajectory
+28,ENSMUSG00000052544.9,St6galnac3,primitive erythroid trajectory
+29,ENSMUSG00000055609.8,Hba-x,primitive erythroid trajectory
+30,ENSMUSG00000044258.9,Ctla2a,Megakaryocyte trajectory
+31,ENSMUSG00000060429.11,Sntb1,Megakaryocyte trajectory
+32,ENSMUSG00000061751.15,Kalrn,Megakaryocyte trajectory
+33,ENSMUSG00000001930.17,Vwf,Megakaryocyte trajectory
+34,ENSMUSG00000033721.16,Vav3,Megakaryocyte trajectory
+35,ENSMUSG00000005611.15,Mrvi1,Megakaryocyte trajectory
+36,ENSMUSG00000034663.13,Bmp2k,Megakaryocyte trajectory
+37,ENSMUSG00000029372.7,Ppbp,Megakaryocyte trajectory
+38,ENSMUSG00000058152.7,Chsy3,Megakaryocyte trajectory
+39,ENSMUSG00000053965.10,Pde5a,Megakaryocyte trajectory

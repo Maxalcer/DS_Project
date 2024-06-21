@@ -76,6 +76,15 @@ combined_res <- combined_res[order(combined_res$padj),]
 write_csv(combined_res, "genes_by_sig.csv")
 ```
 
+```{r}
+combined_res <- combined_res %>% 
+  filter(padj <= 0.05) %>%
+  distinct(gene, .keep_all = TRUE)
+
+write_csv(combined_res, "genes_by_sig_unique.csv")
+```
+
+
 
 
 
