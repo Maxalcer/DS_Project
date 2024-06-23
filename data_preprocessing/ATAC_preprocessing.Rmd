@@ -13,15 +13,10 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(Matrix)
 ```
-```{r}
-data <- read_delim("../data/unprocessed/scATAC_SpinalCord_E13_5.fragments.tsv/scATAC_SpinalCord_E13_5.fragments.tsv")
-```
-
-
 # Load Expression Matrix and annotations
 DO NOT ATEMT TO RUN WITH <64GB OF RAM
 ```{r}
-expression_matrix <- readRDS("../data/unprocessed/OMIX928-99-02.rds") # not included in git
+expression_matrix <- readRDS("../data/unprocessed/ATAC_counts.rds") # not included in git
 ```
 
 ```{r}
@@ -36,10 +31,13 @@ annotations <- annotations %>% select(Barcode, Celltype) %>%
            grepl("Megakaryocyte_Progenitor", Celltype)|
            grepl("Myeloid_Cell", Celltype)|
            grepl("Blood_Progenitor", Celltype)) %>%
-  mutate(Celltype = replace(Celltype, grepl("Erythroblast", Celltype), "Erythroblast")) %>%
-  mutate(Celltype = replace(Celltype, grepl("Cycling_Blood_Progenitor", Celltype), "Cycling_Blood_Progenitor")) %>% 
-  mutate(Celltype = replace(Celltype, grepl("Macrophage", Celltype), "Macrophage")) %>% 
-  mutate(Celltype = replace(Celltype, grepl("Blood_Progenitor", Celltype), "Blood_Progenitor"))
+  mutate(Barcode = sub(paste0(".*\\", "#"), "", Barcode))
+  #mutate(Celltype = replace(Celltype, grepl("Erythroblast", Celltype), "Erythroblast")) %>%
+  #mutate(Celltype = replace(Celltype, grepl("Cycling_Blood_Progenitor", Celltype), "Cycling_Blood_Progenitor")) %>% 
+  #mutate(Celltype = replace(Celltype, grepl("Macrophage", Celltype), "Macrophage")) %>% 
+  #mutate(Celltype = replace(Celltype, grepl("Megakaryocyte_Progenitor", Celltype), "Megakaryocyte_Progenitor")) %>%
+  #mutate(Celltype = replace(Celltype, grepl("Myeloid_Cell", Celltype), "Myeloid_Cell")) %>%
+  #mutate(Celltype = replace(Celltype, grepl("Blood_Progenitor", Celltype), "Blood_Progenitor"))
 ```
 
 ```{r}
@@ -53,12 +51,12 @@ expression_matrix <- expression_matrix[, annotations$Barcode]
 
 ```{r}
 row_max <- apply(expression_matrix, 1, max)
-indx_genes <- which(row_max > max(row_max)/100)
+indx_genes <- which(row_max > max(row_max)/50)
 expression_matrix <- expression_matrix[indx_genes,]
 ```
 
 ```{r}
-saveRDS(expression_matrix, file = "../data/pre_processed/ATAC-Seq-filtered.rds")
+saveRDS(expression_matrix, file = "../data/pre_processed/ATAC-Seq-filtered.rds", compress = TRUE)
 ```
 
 
