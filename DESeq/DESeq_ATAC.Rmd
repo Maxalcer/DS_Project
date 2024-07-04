@@ -1,0 +1,93 @@
+---
+title: "DESeq"
+author: "Max Alcer"
+date: "2024-06-07"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, echo=FALSE}
+library(DESeq2)
+library(Matrix)
+library(tidyverse)
+library(BiocParallel)
+register(SnowParam(4))
+```
+
+
+```{r}
+ATAC_expression_matrix <- readRDS("../data/pre_processed/ATAC-Seq-filtered.rds")
+ATAC_expression_matrix <- ATAC_expression_matrix + 1
+```
+
+```{r}
+ATAC_annotations <- read_csv("../data/pre_processed/ATAC_annotations.csv",show_col_types = FALSE)
+```
+
+```{r}
+dds <- DESeqDataSetFromMatrix(countData = ATAC_expression_matrix,
+                              colData = select(ATAC_annotations, Barcode, Trajectory),
+                              design = ~ Trajectory)
+```
+
+```{r}
+dea <- DESeq(dds, parallel = TRUE)
+```
+
+```{r}
+results <- results(dea, contrast = c("Sub_trajectory_name", 
+                                     "Definitive erythroid trajectory", 
+                                     "White blood cell trajectory"))
+```
+
+```{r}
+plotMA(results)
+```
+
+```{r}
+Sub_traj <- distinct(ATAC_annotations, Trajectory)$Trajectory
+```
+
+```{r}
+res_list <- list()
+for(i in 1:(length(Sub_traj)-1)){
+  for(j in (i+1):length(Sub_traj)){
+    temp <- list(results(dea, contrast = c("Trajectory",
+                                           Sub_traj[i], 
+                                           Sub_traj[j])))
+    res_list <- append(res_list, temp)
+  }
+}
+```
+
+```{r}
+combined_res <- do.call(rbind, lapply(res_list, function(x) {
+  tibble(gene = rownames(x), padj = x$padj)
+}))
+
+combined_res <- combined_res %>% filter(padj != 0)
+
+combined_res <- combined_res[order(combined_res$padj),]
+```
+
+```{r}
+write_csv(combined_res, "genes_by_sig_ATAC.csv")
+```
+
+```{r}
+combined_res <- combined_res %>% 
+  filter(padj <= 0.05) %>%
+  distinct(gene, .keep_all = TRUE)
+
+write_csv(combined_res, "genes_by_sig_unique_ATAC.csv")
+```
+
+
+
+
+
+
+

@@ -15,8 +15,8 @@ library(tidyverse)
 ```
 
 ```{r}
-RNA_data <- readRDS("../data/pre_processed/RNA-Seq-filtered.rds")
-DEG <- read_csv("../DESeq/genes_by_sig.csv")
+data <- readRDS("../data/pre_processed/ATAC-Seq-filtered.rds")
+DEG <- read_csv("../DESeq/genes_by_sig_ATAC.csv")
 ```
 
 ```{r}
@@ -25,12 +25,12 @@ DEG <- DEG %>%
   distinct(gene, .keep_all = TRUE) %>%
   head(200)
 
-RNA_data <- RNA_data[DEG$gene,]
+data <- data[DEG$gene,]
 ```
 
 ```{r}
-write.table(as.matrix(t(RNA_data)), 
-            file="../data/training/train_data_RNA_200.txt")
+write.table(as.matrix(t(data)), 
+            file="../data/training/train_data_ATAC_200.txt")
 ```
 
 

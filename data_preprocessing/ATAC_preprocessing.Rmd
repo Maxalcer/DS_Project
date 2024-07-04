@@ -26,18 +26,20 @@ annotations <- read_csv("../data/unprocessed/OMIX928-24.csv", show_col_types = F
 ```{r}
 annotations <- annotations %>% select(Barcode, Celltype) %>%
   filter(grepl("Erythroblast", Celltype)|
-           grepl("Cycling_Blood_Progenitor", Celltype)|
            grepl("Macrophage", Celltype)|
            grepl("Megakaryocyte_Progenitor", Celltype)|
            grepl("Myeloid_Cell", Celltype)|
            grepl("Blood_Progenitor", Celltype)) %>%
-  mutate(Barcode = sub(paste0(".*\\", "#"), "", Barcode))
-  #mutate(Celltype = replace(Celltype, grepl("Erythroblast", Celltype), "Erythroblast")) %>%
-  #mutate(Celltype = replace(Celltype, grepl("Cycling_Blood_Progenitor", Celltype), "Cycling_Blood_Progenitor")) %>% 
-  #mutate(Celltype = replace(Celltype, grepl("Macrophage", Celltype), "Macrophage")) %>% 
-  #mutate(Celltype = replace(Celltype, grepl("Megakaryocyte_Progenitor", Celltype), "Megakaryocyte_Progenitor")) %>%
-  #mutate(Celltype = replace(Celltype, grepl("Myeloid_Cell", Celltype), "Myeloid_Cell")) %>%
-  #mutate(Celltype = replace(Celltype, grepl("Blood_Progenitor", Celltype), "Blood_Progenitor"))
+  mutate(Barcode = sub(paste0(".*\\", "#"), "", Barcode)) %>%
+  mutate(Trajectory = case_when(
+    grepl("Erythroblast", Celltype) & grepl("G01", Celltype) ~ "primitive erythroid trajectory",
+    grepl("Erythroblast", Celltype) & !grepl("G01", Celltype) ~ "Definitive erythroid trajectory",
+    grepl("Blood_Progenitor", Celltype) ~ "primitive erythroid trajectory",
+    grepl("Macrophage", Celltype) ~ "White blood cell trajectory",
+    grepl("Myeloid_Cell", Celltype) ~ "White blood cell trajectory",
+    grepl("Megakaryocyte_Progenitor", Celltype) ~ "Megakaryocyte trajectory",
+  ))
+  
 ```
 
 ```{r}

@@ -1,0 +1,41 @@
+,gene_name,class,score
+0,Dleu2,Definitive erythroid trajectory,18.463803107376524
+1,Fars2,Definitive erythroid trajectory,19.989034015307197
+2,Mllt3,Definitive erythroid trajectory,20.71899210508606
+3,Atp2b4,Definitive erythroid trajectory,28.266696452568056
+4,Fryl,Definitive erythroid trajectory,43.689745350336224
+5,Zfp608,Definitive erythroid trajectory,29.487833302727317
+6,Hk1,Definitive erythroid trajectory,66.04932831889101
+7,Arfip1,Definitive erythroid trajectory,38.11706517472001
+8,Tnrc6b,Definitive erythroid trajectory,81.46050107229591
+9,Arhgap23,Definitive erythroid trajectory,37.795678544733356
+10,Mical3,White blood cell trajectory,20.60902560076005
+11,Runx1,White blood cell trajectory,20.98282529185102
+12,St3gal1,White blood cell trajectory,21.06412057916672
+13,Immp2l,White blood cell trajectory,21.474893961073466
+14,Celf2,White blood cell trajectory,26.869854083242988
+15,Utrn,White blood cell trajectory,28.43293778944961
+16,Rapgef2,White blood cell trajectory,31.601026695104483
+17,Mir3084-2,White blood cell trajectory,335.5369653582636
+18,Atxn1,White blood cell trajectory,29.966440946323157
+19,Prex1,White blood cell trajectory,26.928333214482606
+20,Ush2a,primitive erythroid trajectory,2.8832740266763492
+21,Nrip1,primitive erythroid trajectory,2.991944004329811
+22,Slc25a21,primitive erythroid trajectory,3.000782677394166
+23,Zeb2,primitive erythroid trajectory,3.001303566320188
+24,St3gal1,primitive erythroid trajectory,11.239269091514393
+25,Gfi1b,primitive erythroid trajectory,5.687482894227627
+26,Nav2,primitive erythroid trajectory,3.0767555284599553
+27,Hs6st1,primitive erythroid trajectory,3.473671441841345
+28,Galnt2,primitive erythroid trajectory,9.07993656800319
+29,Pip5k1b,primitive erythroid trajectory,6.2492236961132095
+30,Nrxn3,Megakaryocyte trajectory,0.07988690893140588
+31,Mapkapk2,Megakaryocyte trajectory,0.08641471106554614
+32,Hs6st1,Megakaryocyte trajectory,0.08889666307698466
+33,Ush2a,Megakaryocyte trajectory,0.11781582486006414
+34,Gfi1b,Megakaryocyte trajectory,0.1270338560308602
+35,St3gal1,Megakaryocyte trajectory,0.1586273225345738
+36,Nav2,Megakaryocyte trajectory,0.13756999496300845
+37,Smad3,Megakaryocyte trajectory,0.17087075880557523
+38,Galnt2,Megakaryocyte trajectory,0.6110038920123173
+39,Zeb2,Megakaryocyte trajectory,0.12102195197039585
