@@ -1,19 +1,20 @@
 library(Matrix)
 library(rlist)
+
 path = "../data/unprocessed/atac_organ_counts/"
 files <- read.table(paste(path, "md5.txt", sep = ""))$V2
 
 matrices <- list()
 
-for(file in files[1:3]){
-  
+# create list of expression matrices from the organs (not included in git)
+for(file in files){
   file <- paste(path,"/ATAC_counts",file,".rds", sep = "")
   matrices <- list.append(matrices, readRDS(file))
-  
 }
 
 all_genes <- c()
 
+# create list of all genes
 for(mat in matrices){
   all_genes <- c(all_genes, rownames(mat))
 }
@@ -24,6 +25,7 @@ exp_matrices <- list()
 
 c <- 1
 
+# extend matrices so that each matrix has the same rows (genes)
 for(mat in matrices){
   temp <- Matrix(0, 
                  nrow = length(all_genes),
@@ -39,6 +41,7 @@ for(mat in matrices){
 
 rm(matrices)
 
-total_matrix <- cbind(exp_matrices)
+# bind all matrices together
+total_matrix <- do.call(cbind, exp_matrices)
 
 saveRDS(total_matrix, "../data/unprocessed/ATAC_counts.rds")

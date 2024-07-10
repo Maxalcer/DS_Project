@@ -16,9 +16,10 @@ library(tidyverse)
 
 ```{r}
 data <- readRDS("../data/pre_processed/ATAC-Seq-filtered.rds")
-DEG <- read_csv("../DESeq/genes_by_sig_ATAC.csv")
+DEG <- read_csv("../DESeq/genes_by_sig_ATAC.csv", show_col_types = FALSE)
 ```
 
+# keep only the top 200 most significant genes
 ```{r}
 DEG <- DEG %>% 
   filter(padj <= 0.05) %>%
@@ -28,6 +29,7 @@ DEG <- DEG %>%
 data <- data[DEG$gene,]
 ```
 
+# write matrix as txt
 ```{r}
 write.table(as.matrix(t(data)), 
             file="../data/training/train_data_ATAC_200.txt")

@@ -23,6 +23,9 @@ expression_matrix <- readRDS("../data/unprocessed/ATAC_counts.rds") # not includ
 annotations <- read_csv("../data/unprocessed/OMIX928-24.csv", show_col_types = FALSE)
 ```
 
+
+# Only keep the cells releated to Haematopoiesis and add a column that 
+# represents the sub-trajectory from the MOCA dataset 
 ```{r}
 annotations <- annotations %>% select(Barcode, Celltype) %>%
   filter(grepl("Erythroblast", Celltype)|
@@ -46,7 +49,9 @@ annotations <- annotations %>% select(Barcode, Celltype) %>%
 write_csv(annotations, "../data/pre_processed/ATAC_annotations.csv")
 ```
 
-
+# Only keep cells in the expression matrix that are releated to Haematopoiesis
+# and filter out genes where the highest expression is lower than 2% of the 
+# highest expression value
 ```{r}
 expression_matrix <- expression_matrix[, annotations$Barcode]
 ```

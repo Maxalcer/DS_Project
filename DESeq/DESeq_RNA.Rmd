@@ -17,39 +17,43 @@ library(BiocParallel)
 register(SnowParam(4))
 ```
 
-
+# Load expression matrix and annotations
 ```{r}
 RNA_expression_matrix <- readRDS("../data/pre_processed/RNA-Seq-filtered.rds")
-RNA_expression_matrix <- RNA_expression_matrix + 1
+RNA_expression_matrix <- RNA_expression_matrix + 1 # pseudocount
 ```
 
 ```{r}
 RNA_annotations <- read_csv("../data/pre_processed/RNA_annotations.csv",show_col_types = FALSE)
 ```
 
+# create DESeq2 object from expression matrix with design by sub trajectory
 ```{r}
 dds <- DESeqDataSetFromMatrix(countData = RNA_expression_matrix,
                               colData = select(RNA_annotations, sample, Sub_trajectory_name),
                               design = ~ Sub_trajectory_name)
 ```
 
+# perfrom differential gene expression analysis
 ```{r}
 dea <- DESeq(dds, parallel = TRUE)
 ```
 
+# save results related to two trajectory for MA Plot
 ```{r}
 results <- results(dea, contrast = c("Sub_trajectory_name", 
                                      "Definitive erythroid trajectory", 
-                                     "White blood cell trajectory"))
+                                     "Megakaryocyte trajectory"))
 ```
 
 ```{r}
-plotMA(results)
+plotMA(results, colNonSig = "blue", colSig = "red")
 ```
 ```{r}
 Sub_traj <- distinct(RNA_annotations, Sub_trajectory_name)$Sub_trajectory_name
 ```
 
+# save results for all combinations of all sub trajectories 
 ```{r}
 res_list <- list()
 for(i in 1:(length(Sub_traj)-1)){
@@ -76,6 +80,7 @@ combined_res <- combined_res[order(combined_res$padj),]
 write_csv(combined_res, "genes_by_sig.csv")
 ```
 
+# keep only the significant genes and each gene only once
 ```{r}
 combined_res <- combined_res %>% 
   filter(padj <= 0.05) %>%
