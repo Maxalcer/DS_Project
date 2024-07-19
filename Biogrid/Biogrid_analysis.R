@@ -65,16 +65,16 @@ print(top_5_sorted_atac)
 # Biogrid interaction network for scRNAseq genes
 
 # Make vector of file names for BioGRID interaction files
-file_names <- c("/Users/elliealspaugh/Downloads/BIOGRID-GENE-200216-4.4.235.tab3.txt",
-"/Users/elliealspaugh/Downloads/BIOGRID-GENE-200224-4.4.235.tab3.txt",
-"/Users/elliealspaugh/Downloads/BIOGRID-GENE-228288-4.4.235.tab3.txt",
-"/Users/elliealspaugh/Downloads/BIOGRID-GENE-201484-4.4.235.tab3.txt",
-"/Users/elliealspaugh/Downloads/BIOGRID-GENE-199546-4.4.235.tab3.txt",
-"/Users/elliealspaugh/Downloads/BIOGRID-GENE-229928-4.4.235.tab3.txt",
-"/Users/elliealspaugh/Downloads/BIOGRID-GENE-232372-4.4.235.tab3.txt",
-"/Users/elliealspaugh/Downloads/BIOGRID-GENE-228314-4.4.235.tab3.txt",
-"/Users/elliealspaugh/Downloads/BIOGRID-GENE-208227-4.4.235.tab3.txt",
-"/Users/elliealspaugh/Downloads/BIOGRID-GENE-219748-4.4.235.tab3.txt")
+file_names <- c("/networks/BIOGRID-GENE-200216-4.4.235.tab3.txt",
+"/networks/BIOGRID-GENE-200224-4.4.235.tab3.txt",
+"/networks/BIOGRID-GENE-228288-4.4.235.tab3.txt",
+"/networks/BIOGRID-GENE-201484-4.4.235.tab3.txt",
+"/networks/BIOGRID-GENE-199546-4.4.235.tab3.txt",
+"/networks/BIOGRID-GENE-229928-4.4.235.tab3.txt",
+"/networks/BIOGRID-GENE-232372-4.4.235.tab3.txt",
+"/networks/BIOGRID-GENE-228314-4.4.235.tab3.txt",
+"/networks/BIOGRID-GENE-208227-4.4.235.tab3.txt",
+"/networks/BIOGRID-GENE-219748-4.4.235.tab3.txt")
 
 # Make vector of corresponding gene names
 gene_names <- c("Hba-x",
@@ -139,15 +139,15 @@ print(node_labels)
 # Biogrid interaction network for scATACseq genes
 
 # Make vector of file names for your BioGRID interaction files
-file_names_atac<- c("/Users/elliealspaugh/Downloads/BIOGRID-GENE-229895-4.4.235.tab3.txt",
-                    "/Users/elliealspaugh/Downloads/BIOGRID-GENE-213774-4.4.235.tab3.txt",
-                    "/Users/elliealspaugh/Downloads/BIOGRID-GENE-198382-4.4.235.tab3.txt",
-                    "/Users/elliealspaugh/Downloads/BIOGRID-GENE-115175-4.4.235.tab3.txt",
-                    "/Users/elliealspaugh/Downloads/BIOGRID-GENE-205938-4.4.235.tab3.txt",
-                    "/Users/elliealspaugh/Downloads/BIOGRID-GENE-234763-4.4.235.tab3.txt",
-                    "/Users/elliealspaugh/Downloads/BIOGRID-GENE-200965-4.4.235.tab3.txt",
-                    "/Users/elliealspaugh/Downloads/BIOGRID-GENE-198101-4.4.235.tab3.txt",
-                    "/Users/elliealspaugh/Downloads/BIOGRID-GENE-208470-4.4.235.tab3.txt")
+file_names_atac<- c("/networks/BIOGRID-GENE-229895-4.4.235.tab3.txt",
+                    "/networks/BIOGRID-GENE-213774-4.4.235.tab3.txt",
+                    "/networks/BIOGRID-GENE-198382-4.4.235.tab3.txt",
+                    "/networks/BIOGRID-GENE-115175-4.4.235.tab3.txt",
+                    "/networks/BIOGRID-GENE-205938-4.4.235.tab3.txt",
+                    "/networks/BIOGRID-GENE-234763-4.4.235.tab3.txt",
+                    "/networks/BIOGRID-GENE-200965-4.4.235.tab3.txt",
+                    "/networks/BIOGRID-GENE-198101-4.4.235.tab3.txt",
+                    "/networks/BIOGRID-GENE-208470-4.4.235.tab3.txt")
 
 # Make vector of corresponding gene names
 gene_names_atac <- c("Ube2o",
