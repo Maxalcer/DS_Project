@@ -43,9 +43,9 @@ expression_matrix <- expression_matrix[DEG$gene,]
 # perform UMAP with default or changed configurations
 ```{r}
 custom.config <- umap.defaults
-custom.config$n_neighbors <- 50
-custom.config$min_dist <- 1.5
-umap <- umap(t(RNA_expression_matrix), config = custom.config)
+custom.config$n_neighbors <- 5
+custom.config$min_dist <- 0.1
+umap <- umap(t(expression_matrix), config = custom.config)
 ```
 
 # transform results into a tibble and plot them

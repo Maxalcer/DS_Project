@@ -44,4 +44,7 @@ to configure train and test the neural networks and perform the interpreatabilit
 If changes are done to the neural network, change the names of the output files
 
 To plot the learning curves run "Neural_Network/plot_learning_curves.ipynb". If new learning curves where created, change the file names accordingly
-    
+
+## Biogrid:
+
+to do the Biogrid analysis, run the Biogrid/Biogrin_analysis.R file. The file paths are coherrent with the previous scripts
